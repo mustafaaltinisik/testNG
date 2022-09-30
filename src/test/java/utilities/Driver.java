@@ -8,17 +8,27 @@ import java.time.Duration;
 
 public class Driver {
 
-static WebDriver driver;
+   static WebDriver driver;
 
 public static WebDriver getDriver(){
-    WebDriverManager.chromedriver().setup();
-    driver = new ChromeDriver();
-    driver.manage().window().maximize();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+    if (driver==null) {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+    }
     return driver;
 }
-public static void closeDriver(){
-    driver.close();
+public static void closeDriver() {
+    if (driver != null) { // driver'a değer atanmışsa kapat
+        driver.close();
+        driver = null; // Kapandıktan sonra sonraki açmaları garanti altına almak için driver'i tekrar null yaptık
 
-}
-}
+    }
+    /*public static void quitDriver() {
+        if (driver != null)
+            driver.quit();
+        driver = null;
+
+     */
+}}
