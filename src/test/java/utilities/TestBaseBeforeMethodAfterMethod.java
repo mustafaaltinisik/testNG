@@ -14,7 +14,7 @@ import java.time.Duration;
 public abstract class TestBaseBeforeMethodAfterMethod {
     protected static WebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(groups = "gp2")
     public static void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -22,7 +22,7 @@ public abstract class TestBaseBeforeMethodAfterMethod {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
     }
 
-    @AfterMethod
+    @AfterMethod(groups = "gp1")
     public static void tearDown() {
         //driver.close();
     }
